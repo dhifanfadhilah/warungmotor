@@ -1,25 +1,36 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-    </div>
+@extends('layouts.auth')
 
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@section('title')
+<title>Reset Password</title>
+@endsection
 
-    <form method="POST" action="{{ route('password.email') }}">
-        @csrf
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+@section('content')
+<div  class="content-center grid mx-24 font-bold mt-36">
+    @if (session('status'))
+        <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50" role="alert">
+            {{ session('status') }}
         </div>
+    @endif
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div>
+    <a href="{{ route('login') }}" class="mb-3">
+        <img src="{{url('/assets/blue-back-icon.png')}}" alt="" class="h-6 w-6">
+    </a>
+
+    <form action="{{ route('password.email') }}" method="POST">
+        @csrf 
+
+        <h1 class="text-blue-old text-3xl text-center mb-4">{{ __('Reset Password') }}</h1>
+
+        <label for="email" class="font-medium">{{ __('Email Address') }}</label>
+        <input type="text" name="email" id="email" placeholder="Email Address" required value="{{ old('email') }}" autocomplete="email" class="block mb-4 pl-2.5 w-full text-sm text-blue-old bg-transparent border-0 border-b-2 border-blue-old font-medium appearance-none focus:outline-none focus:ring-0 peer/email" />
+
+        @error('email')
+            <p class="mt-2 invisible peer-invalid/email:visible text-red-500 text-sm font-extralight">
+                {{ $message }}
+            </p>
+        @enderror
+
+        <button type="submit" class="mb-4 w-auto justify-self-center text-white bg-blue-old hover:bg-blue-950 focus:outline-none focus:ring-2 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">{{ __('Send Password Link') }}</button>
     </form>
-</x-guest-layout>
+</div>
+@endsection
