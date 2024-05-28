@@ -1,47 +1,40 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('layouts.auth')
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+@section('title')
+    <title>Login</title>
+@endsection
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+ 
+@section('content')
+<form method="POST" action="{{ route('login') }}" class="content-center grid mx-24 font-bold mt-24">
+    @csrf
+        <h1 class="text-blue-old text-3xl text-center mb-4">{{ __('Login') }}</h1>
+        <label for="email" class="font-medium">{{ __('Email Address') }}</label>
+        <input type="text" name="email" id="email" placeholder="Email Address" required value="{{ old('email') }}" autocomplete="email" class="block mb-4 pl-2.5 w-full text-sm text-blue-old bg-transparent border-0 border-b-2 border-blue-old font-medium appearance-none focus:outline-none focus:ring-0 peer/email" />
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        @error('email')
+            <p class="mt-2 text-red-500 text-sm font-extralight">
+                {{ $message }}
+            </p>
+        @enderror
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+        <label for="password" class="font-medium">{{ __('Password') }}</label>
+        <input type="password" name="password" id="password" placeholder="Password" required autocomplete="current-password" class="block mb-4 pl-2.5 w-full text-sm text-blue-old bg-transparent border-0 border-b-2 border-blue-old font-medium appearance-none focus:outline-none focus:ring-0 peer/password" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+        @error('password')
+            <p class="mt-2 text-red-500 text-sm font-extralight">
+                {{ $message }}
+            </p>
+        @enderror
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
+        <div class="grid grid-cols-2 mb-4">
+            <div class="justify-self-center">
+                <input id="remember_me" type="checkbox" name="remember_me" value="" class="w-4 h-4 border-2 border-blue-old rounded bg-blue-old peer/remember_me focus:ring-2 focus:ring-blue-300" {{ old('remember_me') ? 'checked' : '' }} />
+                <label for="remember_me" class="font-thin text-xs ml-1 peer-checked/remember_me:font-extralight">{{ __('Tetap Masuk')}}</label>
+            </div>
+            @if (Route::has('password.request'))        
+                <a href="{{ route('password.request') }}" class="font-extralight pt-1 text-xs justify-self-center">{{ __('Lupa Passsword?') }}</a>
             @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
         </div>
 
         <div>
