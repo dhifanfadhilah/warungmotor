@@ -43,5 +43,9 @@
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
+
+        <div>
+            <a href="{{route('socialite.redirect', 'google')}}" class="text-white">Login with Google</a>
+        </div>
     </form>
 </x-guest-layout>
