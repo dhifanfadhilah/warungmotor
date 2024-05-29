@@ -13,7 +13,7 @@
         <input type="text" name="email" id="email" placeholder="Email Address" required value="{{ old('email') }}" autocomplete="email" class="block mb-4 pl-2.5 w-full text-sm text-blue-old bg-transparent border-0 border-b-2 border-blue-old font-medium appearance-none focus:outline-none focus:ring-0 peer/email" />
 
         @error('email')
-            <p class="mt-2 text-red-500 text-sm font-extralight">
+            <p class="mb-2 text-red-500 text-sm font-extralight">
                 {{ $message }}
             </p>
         @enderror
@@ -22,7 +22,7 @@
         <input type="password" name="password" id="password" placeholder="Password" required autocomplete="current-password" class="block mb-4 pl-2.5 w-full text-sm text-blue-old bg-transparent border-0 border-b-2 border-blue-old font-medium appearance-none focus:outline-none focus:ring-0 peer/password" />
 
         @error('password')
-            <p class="mt-2 text-red-500 text-sm font-extralight">
+            <p class="mb-2 text-red-500 text-sm font-extralight">
                 {{ $message }}
             </p>
         @enderror
