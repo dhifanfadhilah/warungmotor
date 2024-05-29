@@ -6,7 +6,7 @@
 
  
 @section('content')
-<form method="POST" action="{{ route('login') }}" class="content-center grid mx-24 font-bold mt-24">
+<form method="POST" action="{{ route('login') }}" class="content-center grid mx-24 font-bold mt-20">
     @csrf
         <h1 class="text-blue-old text-3xl text-center mb-4">{{ __('Login') }}</h1>
         <label for="email" class="font-medium">{{ __('Email Address') }}</label>
@@ -37,8 +37,15 @@
             @endif
         </div>
 
-        <div>
-            <a href="{{route('socialite.redirect', 'google')}}" class="text-white">Login with Google</a>
+        <a href="{{route('socialite.redirect', 'google')}}" class="justify-self-center w-3/5 mb-3">
+        <div class="bg-white rounded-full border-2 border-blue-old shadow hover:bg-gray-100">
+            <p  class="text-blue-old py-1 text-center">Login with Google</p>
         </div>
+        </a>
+
+        <button type="button" class="mb-4 w-32 justify-self-center text-white shadow bg-blue-old hover:bg-blue-950 focus:outline-none focus:ring-2 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">{{ __('LOGIN') }}</button>
+        <p class="font-medium text-xs justify-self-center">
+            Belum punya akun? <span><a href="{{ route('register') }}" class="text-red-700">Daftar</a></span>
+        </p>
     </form>
-</x-guest-layout>
+@endsection
