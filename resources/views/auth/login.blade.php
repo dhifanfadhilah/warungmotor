@@ -36,9 +36,9 @@
                 <a href="{{ route('password.request') }}" class="font-extralight pt-1 text-xs justify-self-center">{{ __('Lupa Passsword?') }}</a>
             @endif
         </div>
-        <button type="submit" class="mb-4 w-32 justify-self-center text-white bg-blue-old hover:bg-blue-950 focus:outline-none focus:ring-2 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">{{ __('LOGIN') }}</button>
-        <p class="font-medium text-xs justify-self-center">
-            {{__('Belum punya akun?')}} <span><a href="{{ route('register') }}" class="text-red-700">{{__('Daftar')}}</a></span>
-        </p>
-</form>
-@endsection
+
+        <div>
+            <a href="{{route('socialite.redirect', 'google')}}" class="text-white">Login with Google</a>
+        </div>
+    </form>
+</x-guest-layout>
