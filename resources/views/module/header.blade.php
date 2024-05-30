@@ -28,7 +28,7 @@
             <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 shadow w-32" id="user-dropdown">
                 <ul class="py-2" aria-labelledby="user-menu-button">
                     <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100">
+                        <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100">
                             Profile
                         </a>
                     </li>
