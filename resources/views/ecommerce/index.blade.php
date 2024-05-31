@@ -85,8 +85,8 @@
     </button>
 </div>
 
-<div class="flex my-8 justify-center font-inter px-12" aria-label="Breadcrumb">
-    <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+<div class="flex my-8 justify-center font-inter px-16" aria-label="Breadcrumb">
+    <ol class="inline-flex flex-grow items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
         <li class="inline-flex items-center">
             <a href="{{ url('/') }}" class="inline-flex items-center text-base font-medium text-navy hover:text-blueish">
                 Home
@@ -96,11 +96,19 @@
             </svg>
         </li>
     </ol>
+
+    <form class="max-w-md mx-auto flex-shrink flex">
+            <input type="search" id="default-search" class="w-full p-1 text-sm text-blue-old bg-transparent border-0 border-b-2 border-blue-old font-medium appearance-none focus:outline-none focus:ring-0" placeholder="Search Product..." @keyword.enter="event.preventDefault();
+                                        this.closest('form').submit();"/>
+            <svg class="w-5 h-5 mt-2 ml-1 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+            </svg>
+    </form>
+
 </div>
 
 <div class="grid grid-cols-5 justify-center gap-12 px-16 mb-12">
-    @for ($i = 0; $i < 15; $i++)
-    <div class="bg-white-broke h-80 font-inter text-sm rounded-lg font-semibold hover:border-2 hover:border-blue-200 hover:shadow">
+    @for ($i = 0; $i < 15; $i++) <div class="bg-white-broke h-80 font-inter text-sm rounded-lg font-semibold hover:border-2 hover:border-blue-200 hover:shadow">
         <a href="">
             <img class="object-cover" src="{{url('/assets/motorlist.png')}}" alt="" />
             <div class="p-5 grid grid-cols-2">
@@ -108,7 +116,7 @@
                 <p class="justify-self-end">165 Jt IDR</p>
             </div>
         </a>
-    </div>
-    @endfor
+</div>
+@endfor
 </div>
 @endsection
