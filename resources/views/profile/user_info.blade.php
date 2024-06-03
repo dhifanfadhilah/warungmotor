@@ -11,17 +11,17 @@
             <input type="file" id="profileimg" name="profileimg" class="hidden" />
         </div>
         <div class="">
-            <h1 class="text-xl font-medium">Nama Pengguna</h1>
-            <h2 class="text-base">Bandung, Jawa Barat</h2>
+            <h1 class="text-xl font-medium">{{ $user->name }}</h1>
+            <h2 class="text-base">Lokasi</h2>
         </div>
     </div>
     <div class="mt-5">
         <label for="name" class="mb-2 block text-sm font-medium">Nama Lengkap</label>
-        <input type="text" id="name" name="name" autocomplete="name" class="w-full text-sm font-medium p-2 rounded-lg bg-gray-100 border border-gray-200 focus:border-gray-blueish" />
+        <input type="text" id="name" name="name" autocomplete="name" value="{{ $user->name }}" class="w-full text-sm font-medium p-2 rounded-lg bg-gray-100 border border-gray-200 focus:border-gray-blueish" />
     </div>
     <div class="mt-5">
         <label for="email" class="mb-2 block text-sm font-medium">Email</label>
-        <input type="text" id="email" name="email" autocomplete="email" class="w-full text-sm font-medium p-2 rounded-lg bg-gray-100 border border-gray-200 focus:border-gray-blueish" />
+        <input type="text" id="email" name="email" autocomplete="email" value="{{ $user->email }}" class="w-full text-sm font-medium p-2 rounded-lg bg-gray-100 border border-gray-200 focus:border-gray-blueish" />
 
         @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
         <div>
@@ -48,11 +48,11 @@
     </div>
     <div class="mt-5">
         <label for="notelp" class="mb-2 block text-sm font-medium">No. Telepon</label>
-        <input type="text" id="notelp" name="notelp" autocomplete="notelp" class="w-full text-sm font-medium p-2 rounded-lg bg-gray-100 border border-gray-200 focus:border-gray-blueish" />
+        <input type="text" id="notelp" name="notelp" autocomplete="notelp" placeholder="(+62)...." class="w-full text-sm font-medium p-2 rounded-lg bg-gray-100 border border-gray-200 focus:border-gray-blueish" />
     </div>
     <div class="mt-5">
         <label for="lokasi" class="mb-2 block text-sm font-medium">Lokasi</label>
-        <input type="text" id="lokasi" name="lokasi" autocomplete="lokasi" class="w-full text-sm font-medium p-2 rounded-lg bg-gray-100 border border-gray-200 focus:border-gray-blueish" />
+        <input type="text" id="lokasi" name="lokasi" autocomplete="lokasi" placeholder="Alamat Lengkap" class="w-full text-sm font-medium p-2 rounded-lg bg-gray-100 border border-gray-200 focus:border-gray-blueish" />
     </div>
     <button type="submit" class="my-4 w-32 text-white shadow bg-blue-old hover:bg-blue-950 focus:outline-none focus:ring-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Save</button>
 
