@@ -32,6 +32,7 @@ export default {
             },
             spacing:{
                 '9/10': '90%',
+                '128': '32rem',
             },
         },
     },
