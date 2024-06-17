@@ -19,6 +19,7 @@ class ProductDetailResource extends JsonResource
             'merk' => $this->merk,
             'model' => $this->model,
             'tahun' => $this->tahun,
+            'image' => $this->image,
             'jarak' => $this->jarak,
             'judul' => $this->judul,
             'deskripsi' => $this->deskripsi,

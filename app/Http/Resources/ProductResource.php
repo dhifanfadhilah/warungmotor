@@ -16,6 +16,7 @@ class ProductResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'image' => $this->image,
             'judul' => $this->judul,
             'harga' => $this->harga,
             'created_at' => date_format($this->created_at, "Y/m/d")

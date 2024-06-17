@@ -7,6 +7,7 @@ use App\Http\Resources\ProductDetailResource;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -34,6 +35,17 @@ class ProductController extends Controller
             'kontak' => 'required',
         ]);
 
+        $image = null;
+
+        if ($request->file) {
+            $fileName = $this->generateRandomString();
+            $extension = $request->file->extension();
+            $image = $fileName . '.' . $extension;
+
+            Storage::putFileAs('image', $request->file, $image);
+        }
+
+        $request['image'] = $image;
         $request['owner'] = Auth::user()->id;
         $product = Product::create($request->all());
 
@@ -64,5 +76,15 @@ class ProductController extends Controller
         $product->delete();
 
         return new ProductDetailResource($product->loadMissing('author:id,name'));
+    }
+
+    function generateRandomString($length = 40) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }

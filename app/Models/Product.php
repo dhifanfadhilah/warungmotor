@@ -16,6 +16,7 @@ class Product extends Model
         'merk',
         'model',
         'tahun',
+        'image',
         'jarak',
         'judul',
         'deskripsi',
