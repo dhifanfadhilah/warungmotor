@@ -25,6 +25,7 @@ return new class extends Migration
             $table->unsignedBigInteger('owner');
             $table->string('kontak', 15);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('owner')->references('id')->on('users');
         });
