@@ -16,7 +16,7 @@
             </svg>
         </li>
         <li class="inline-flex items-center">
-            <a href="" class="inline-flex items-center text-base font-medium text-navy hover:text-blueish">
+            <a href="{{ route('product.detail', ['id' => $product->id]) }}" class="inline-flex items-center text-base font-medium text-navy hover:text-blueish">
                 Beli Motor
             </a>
             <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
@@ -36,70 +36,44 @@
 </div>
 
 <div class="grid grid-cols-2 py-8 px-16 gap-12 bg-white-broke">
-    <div class="flex flex-col">
-        <div class="flex self-start w-full p-3">
-            <ul class="flex flex-nowrap justify-start" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist" data-tabs-active-classes="bg-gray-200 border-2 border-blue-500">
-                <li class="px-2 h-24" role="presentation">
-                    <button class="h-full hover:bg-gray-200" autofocus id="image1-tab" data-tabs-target="#image1" type="button" role="tab" aria-controls="image1" aria-selected="false">
-                        <img src="{{url('/assets/motorshow.png')}}" alt="" class="h-full object-cover">
-                    </button>
-                </li>
-                <li class="px-2 h-24" role="presentation">
-                    <button class="h-full hover:bg-gray-200" id="image2-tab" data-tabs-target="#image2" type="button" role="tab" aria-controls="image2" aria-selected="false">
-                        <img src="{{url('/assets/detailprod1.jpeg')}}" alt="" class="h-full object-cover">
-                    </button>
-                </li>
-                <li class="px-2 h-24" role="presentation">
-                    <button class="h-full hover:bg-gray-200" id="image3-tab" data-tabs-target="#image3" type="button" role="tab" aria-controls="image3" aria-selected="false">
-                        <img src="{{url('/assets/detailprod2.jpeg')}}" alt="" class="h-full object-cover">
-                    </button>
-                </li>
-                <li class="px-2 h-24" role="presentation">
-                    <button class="h-full hover:bg-gray-200" id="image4-tab" data-tabs-target="#image4" type="button" role="tab" aria-controls="image4" aria-selected="false">
-                        <img src="{{url('/assets/detailprod3.jpeg')}}" alt="" class="h-full object-cover">
-                    </button>
-                </li>
-            </ul>
-        </div>
-        <div class="order-first self-center" id="default-tab-content">
-            <div class="hidden" id="image1" role="tabpanel" aria-labelledby="image1-tab">
-                <img src="{{url('/assets/motorshow.png')}}" alt="" class="h-64">
-            </div>
-            <div class="hidden" id="image2" role="tabpanel" aria-labelledby="image2-tab">
-                <img src="{{url('/assets/detailprod1.jpeg')}}" alt="" class="h-64">
-            </div>
-            <div class="hidden" id="image3" role="tabpanel" aria-labelledby="image3-tab">
-                <img src="{{url('/assets/detailprod2.jpeg')}}" alt="" class="h-64">
-            </div>
-            <div class="hidden" id="image4" role="tabpanel" aria-labelledby="image4-tab">
-                <img src="{{url('/assets/detailprod3.jpeg')}}" alt="" class="h-64">
-            </div>
-        </div>
+    <div class="flex justify-center">
+        <img src="{{ asset('images/' . $product->image) }}" class="h-80" alt="{{ $product->judul }}">
     </div>
     <div class="flex flex-col justify-between">
         <div>
             <h1 class="text-3xl font-bold mb-3">
-                Ducati Streetfighter V4
+                {{$product->judul}}
             </h1>
-            <p class="text-sm font-semibold mb-3">2022</p>
-            <h2 class="text-3xl font-bold mb-3">IDR 330.499.000</h2>
-            <div class="mb-3 text-sm">
+            <p class="text-xl font-semibold mb-3">{{$product->tahun}}</p>
+            <h2 class="text-3xl font-bold mb-3">RP {{ number_format($product->harga, 0, ',', '.') }}</h2>
+            <div class="mb-3 border-y-4 border-gray-200">
+                <h3 class="text-xl font-bold py-3">Penjual: <span class="font-semibold">{{$product->author->name}}</span></h3>
+            </div>
+            <div class="mb-2 text-base">
+                <p class="font-bold mb-1">Merk: <span class="font-medium">{{$product->merk}}</span></p>
+                <p class="font-bold mb-1">Model: <span class="font-medium">{{$product->model}}</span></p>
+                <p class="font-bold mb-1">Jarak: <span class="font-medium">{{$product->jarak}} km</span></p>
+            </div>
+            <div class="mb-5 text-sm">
                 <p class="font-bold">Deskripsi</p>
                 <p class="font-medium">
-                    Ducati Streetfighter V4 tahun 2022, 650 cc, jarak tempuh 500+ KM, pajak aman, surat komplit, lokasi Bandung, Jawa Barat
+                    {{$product->deskripsi}}
                 </p>
             </div>
         </div>
 
         <div class="w-72 grid grid-cols-2 gap-2 mb-5">
-            <a href="" class="col-span-2 w-ful p-1 rounded-lg shadow bg-red-500 text-center text-lg font-bold hover:bg-red-400">
-                Kontak Penjual
+            @if ($product->nego)
+            <a href="" class="col-span-2 w-full p-1 rounded-lg shadow bg-red-500 text-center text-lg font-bold hover:bg-red-400">
+                Negosisasi
             </a>
-            <a href="" class="w-full p-1 rounded-lg shadow bg-blue-old text-center text-lg font-bold text-white hover:bg-blue-800">
+            @else
+            <button class="col-span-2 w-full p-1 rounded-lg shadow bg-red-500 text-center text-lg font-bold" disabled>
+                Nett
+            </button>
+            @endif
+            <a href="" class="col-span-2 w-full p-1 rounded-lg shadow bg-blue-old text-center text-lg font-bold text-white hover:bg-blue-800">
                 Beli
-            </a>
-            <a href="" class="w-full p-1 rounded-lg shadow bg-blue-old text-center text-lg font-bold text-white hover:bg-blue-800">
-                Trade In
             </a>
         </div>
     </div>
@@ -118,47 +92,42 @@
             </div>
         </div>
         <div class="w-full overflow-hidden relative">
-            @for ($i = 0; $i < 5; $i++)
             <div class="w-full flex justify-around duration-700 ease-in-out" data-carousel-item>
+                @foreach ($slideproduct as $row)
                 <div class="bg-white-broke h-80 w-56 font-inter text-sm rounded-lg font-semibold hover:border-2 hover:border-blue-200 hover:shadow">
-                    <a href="">
-                        <img class="object-cover w-full" src="{{url('/assets/motorlist.png')}}" alt="" />
-                        <div class="p-5 grid grid-cols-2">
-                            <p>Kawasaki Ninja 650</p>
-                            <p class="justify-self-end">165 Jt IDR</p>
+                    <a href="{{route('product.detail', ['id' => $row->id])}}">
+                        <img class="object-cover w-full h-40" src="{{ asset('images/' . $row->image) }}" alt="{{$row->judul}}"/>
+                        <div class="p-5">
+                            <p>{{$row->judul}}</p>
+                            <p class="justify-self-end">RP {{ number_format($row->harga, 0, ',', '.') }}</p>
                         </div>
                     </a>
                 </div>
-                <div class="bg-white-broke h-80 w-56 font-inter text-sm rounded-lg font-semibold hover:border-2 hover:border-blue-200 hover:shadow">
-                    <a href="">
-                        <img class="object-cover w-full" src="{{url('/assets/motorlist.png')}}" alt="" />
-                        <div class="p-5 grid grid-cols-2">
-                            <p>Kawasaki Ninja 650</p>
-                            <p class="justify-self-end">165 Jt IDR</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="bg-white-broke h-80 w-56 font-inter text-sm rounded-lg font-semibold hover:border-2 hover:border-blue-200 hover:shadow">
-                    <a href="">
-                        <img class="object-cover w-full" src="{{url('/assets/motorlist.png')}}" alt="" />
-                        <div class="p-5 grid grid-cols-2">
-                            <p>Kawasaki Ninja 650</p>
-                            <p class="justify-self-end">165 Jt IDR</p>
-                        </div>
-                    </a>
-                </div>
+                @endforeach
             </div>
-            @endfor
-        </div>
-        <div class="w-2/12 flex items-center">
-            <div class="w-full text-left">
-                <button class="p-3 rounded-full bg-white border border-gray-100 shadow ml-5" data-carousel-next>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                    </svg>
-                </button>
+            <div class="w-full flex justify-around duration-700 ease-in-out" data-carousel-item>
+                @foreach ($sprod as $prod)
+                <div class="bg-white-broke h-80 w-56 font-inter text-sm rounded-lg font-semibold hover:border-2 hover:border-blue-200 hover:shadow">
+                    <a href="{{route('product.detail', ['id' => $prod->id])}}">
+                        <img class="object-cover w-full h-40" src="{{ asset('images/' . $prod->image) }}" alt="{{$prod->judul}}" />
+                        <div class="p-5">
+                            <p>{{$prod->judul}}</p>
+                            <p class="">RP {{ number_format($prod->harga, 0, ',', '.') }}</p>
+                        </div>
+                    </a>
+                </div>
+                @endforeach
             </div>
+    </div>
+    <div class="w-2/12 flex items-center">
+        <div class="w-full text-left">
+            <button class="p-3 rounded-full bg-white border border-gray-100 shadow ml-5" data-carousel-next>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                </svg>
+            </button>
         </div>
     </div>
+</div>
 </div>
 @endsection

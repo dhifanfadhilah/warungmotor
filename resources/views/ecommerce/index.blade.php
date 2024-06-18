@@ -8,57 +8,21 @@
 <div id="default-carousel" class="relative w-full" data-carousel="slide">
 
     <div class="relative h-72 overflow-hidden rounded-lg md:h-96">
-
+        @foreach ($heroproducts as $hero)
         <div class="hidden duration-700 ease-in-out grid grid-cols-2 content-center h-full bg-white-broke mx-20" data-carousel-item>
             <div class="justify-self-center">
-                <img src="{{url('/assets/motorshow.png')}}" class="h-80" alt="..." />
+                <img src="{{ asset('images/' . $hero->image) }}" class="h-80" alt="..." />
 
             </div>
             <div class="self-center">
-                <div class="ml-12 w-96 text-navy">
-                    <h1 class="text-2xl font-bold">Ducati Streetfighter V4</h1>
-                    <p class="text-lg font-bold">Red with dark grey frame and black wheels,
-                        16-litre aluminum tank,
-                        208 HP.</p>
-                    <br />
-                    <a href="#" class="text-sm font-bold">Detail Product...</a>
+                <div class="flex flex-col h-full justify-around ml-12 w-96 text-navy">
+                    <h1 class="text-2xl font-bold">{{$hero->judul}}</h1>
+                    <br><br>
+                    <a href="{{route('product.detail', ['id' => $hero->id])}}" class="text-sm font-bold">Detail Product...</a>
                 </div>
             </div>
         </div>
-
-        <div class="hidden duration-700 ease-in-out grid grid-cols-2 content-center h-full bg-white-broke mx-20" data-carousel-item>
-            <div class="justify-self-center">
-                <img src="{{url('/assets/motorshow.png')}}" class="h-80" alt="..." />
-
-            </div>
-            <div class="self-center">
-                <div class="ml-12 w-96 text-navy">
-                    <h1 class="text-2xl font-bold">Ducati Streetfighter V4</h1>
-                    <p class="text-lg font-bold">Red with dark grey frame and black wheels,
-                        16-litre aluminum tank,
-                        208 HP.</p>
-                    <br />
-                    <a href="#" class="text-sm font-bold">Detail Product...</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="hidden duration-1000 ease-in-out grid grid-cols-2 content-center h-full bg-white-broke mx-20" data-carousel-item>
-            <div class="justify-self-center">
-                <img src="{{url('/assets/motorshow.png')}}" class="h-80" alt="..." />
-
-            </div>
-            <div class="self-center">
-                <div class="ml-12 w-96 text-navy">
-                    <h1 class="text-2xl font-bold">Ducati Streetfighter V4</h1>
-                    <p class="text-lg font-bold">Red with dark grey frame and black wheels,
-                        16-litre aluminum tank,
-                        208 HP.</p>
-                    <br />
-                    <a href="#" class="text-sm font-bold">Detail Product...</a>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
 
     <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
@@ -98,25 +62,28 @@
     </ol>
 
     <form class="max-w-md mx-auto flex-shrink flex">
-            <input type="search" id="default-search" class="w-full p-1 text-sm text-blue-old bg-transparent border-0 border-b-2 border-blue-old font-medium appearance-none focus:outline-none focus:ring-0" placeholder="Search Product..." @keyword.enter="event.preventDefault();
-                                        this.closest('form').submit();"/>
-            <svg class="w-5 h-5 mt-2 ml-1 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-            </svg>
+        <input type="search" id="default-search" class="w-full p-1 text-sm text-blue-old bg-transparent border-0 border-b-2 border-blue-old font-medium appearance-none focus:outline-none focus:ring-0" placeholder="Search Product..." @keyword.enter="event.preventDefault();
+                                        this.closest('form').submit();" />
+        <svg class="w-5 h-5 mt-2 ml-1 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+        </svg>
     </form>
 
 </div>
 
 <div class="grid grid-cols-5 justify-center gap-12 px-16 mb-12">
-    @for ($i = 0; $i < 15; $i++) <div class="bg-white-broke h-80 font-inter text-sm rounded-lg font-semibold hover:border-2 hover:border-blue-200 hover:shadow">
-        <a href="">
-            <img class="object-cover" src="{{url('/assets/motorlist.png')}}" alt="" />
-            <div class="p-5 grid grid-cols-2">
-                <p>Kawasaki Ninja 650</p>
-                <p class="justify-self-end">165 Jt IDR</p>
+    @forelse ($products as $product)
+    <div class="bg-white-broke h-80 font-inter text-sm rounded-lg font-semibold hover:border-2 hover:border-blue-200 hover:shadow">
+        <a href="{{route('product.detail', ['id' => $product->id])}}">
+        <img class="object-cover h-44 rounded-t-lg" src="{{ asset('images/' . $product->image) }}" alt="" />
+            <div class="p-5">
+                <p>{{$product->judul}}</p>
+                <p class="justify-self-end">RP {{ number_format($product->harga, 0, ',', '.') }}</p>
             </div>
         </a>
-</div>
-@endfor
+    </div>
+    @empty
+    <p>no product</p>
+    @endforelse
 </div>
 @endsection

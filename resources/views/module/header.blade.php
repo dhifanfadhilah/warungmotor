@@ -1,6 +1,6 @@
 <nav class="bg-blueish">
     <div class="max-w-screen-2xl flex flex-wrap items-center justify-between my-auto mx-12 p-4">
-        <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <a href="{{route('seller.dashboard')}}" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="{{url('assets/menu-icon.png')}}" class="h-6 w-8" alt="Menu Icon" />
         </a>
         <div class="flex items-center md:order-2 space-x-3">

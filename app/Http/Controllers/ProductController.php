@@ -11,17 +11,28 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $products = Product::all();
-        return ProductResource::collection($products);
-        }
-        
-    public function show($id){
-        $product = Product::with('author:id,name')->findOrFail($id);
-        return new ProductDetailResource($product);
+        $heroproducts = Product::orderBy('harga', 'desc')->take(3)->get();
+        return view('ecommerce.index', compact('products', 'heroproducts'));
     }
 
-    public function store(Request $request){
+    public function show($id)
+    {
+        $product = Product::with('author:id,name')->findOrFail($id);
+        $slideproduct = Product::orderBy('jarak', 'desc')->take(3)->get();
+        $sprod = Product::orderBy('jarak', 'asc')->take(3)->get();
+        // return new ProductDetailResource($product);
+        return view('product.index', compact('product', 'slideproduct', 'sprod'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->merge([
+            'nego' => $request->input('nego') === 'true' ? true : false
+        ]);
+
         $validated = $request->validate([
             'merk' => 'required',
             'model' => 'required',
@@ -35,24 +46,43 @@ class ProductController extends Controller
             'kontak' => 'required',
         ]);
 
-        $image = null;
+        $image = '';
 
-        if ($request->file) {
+        if ($request->hasFile('image')) {
             $fileName = $this->generateRandomString();
-            $extension = $request->file->extension();
+            $extension = $request->file('image')->getClientOriginalExtension();
             $image = $fileName . '.' . $extension;
 
-            Storage::putFileAs('image', $request->file, $image);
+            // Storage::putFileAs('image', $request->file('image'), $image);
+            $request->file('image')->move(public_path('images'), $image);
+
+            // if (file_exists(public_path('images/' . $image))) {
+            //     dd('File successfully moved to: ' . public_path('images/' . $image));
+            // } else {
+            //     dd('File not found after moving: ' . public_path('images/' . $image));
+            // }
+
+
+            // dd($request->image);
         }
 
-        $request['image'] = $image;
-        $request['owner'] = Auth::user()->id;
-        $product = Product::create($request->all());
+        // $request['image'] = $image;
+        // $request['owner'] = Auth::user()->id;
+        $product = new Product($validated);
+        $product->image = $image;
+        $product->owner = Auth::user()->id;
+        $product->save();
+        // $product = Product::create($request->all());
 
-        return new ProductDetailResource($product->loadMissing('author:id,name'));
+        return redirect()->route('seller.dashboard')->with('success', 'Product updated successfully!');
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
+        $request->merge([
+            'nego' => $request->input('nego') === 'true' ? true : false
+        ]);
+
         $validated = $request->validate([
             'merk' => 'required',
             'model' => 'required',
@@ -68,17 +98,32 @@ class ProductController extends Controller
 
         $product = Product::findOrFail($id);
         $product->update($request->all());
-        return new ProductDetailResource($product->loadMissing('author:id,name'));
+        return redirect()->route('seller.dashboard')->with('updateSuccess', 'Product updated successfully!');
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $product = Product::findOrFail($id);
         $product->delete();
 
-        return new ProductDetailResource($product->loadMissing('author:id,name'));
+        return redirect()->route('seller.dashboard')->with('deleteSuccess', 'Product updated successfully!');
     }
 
-    function generateRandomString($length = 40) {
+    public function sellerproduct($id = null)
+    {
+        $seller = Auth::user()->id;
+        $products = Product::orderBy('created_at', 'DESC')->where('owner', $seller)->paginate(4);
+        $productToUpdate = null;
+
+        if ($id) {
+            $productToUpdate = Product::find($id);
+        }
+
+        return view('seller.dashboard', compact('products', 'productToUpdate'));
+    }
+
+    function generateRandomString($length = 40)
+    {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';

@@ -18,9 +18,12 @@ use App\Http\Controllers\ProductController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+ 
+// Route::get('/', [ProductController::class, 'index'])->name('dashboard');
 
-Route::get('/products', [ProductController::class, 'index']);
-Route::get('/products/{id}', [ProductController::class, 'show']);
-Route::post('/products', [ProductController::class, 'store'])->middleware(['auth:sanctum']);
-Route::patch('/products/{id}', [ProductController::class, 'update'])->middleware(['auth:sanctum', 'product_owner']);
-Route::delete('/products/{id}', [ProductController::class, 'destroy'])->middleware(['auth:sanctum', 'product_owner']);
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('product.detail');
+
+Route::get('/seller/{id?}', [ProductController::class, 'sellerproduct'])->middleware('auth:sanctum')->name('seller.dashboard');
+Route::post('/seller', [ProductController::class, 'store'])->middleware(['auth:sanctum'])->name('upload.product');
+Route::patch('/seller/{id}', [ProductController::class, 'update'])->middleware(['auth:sanctum', 'product_owner'])->name('update.product');
+Route::delete('/seller/{id}', [ProductController::class, 'destroy'])->middleware(['auth:sanctum', 'product_owner'])->name('delete.product');

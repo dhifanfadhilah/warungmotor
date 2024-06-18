@@ -16,12 +16,6 @@
                         User Info
                     </button>
                 </li>
-                <li class="" role="presentation">
-                    <button class="flex items-center p-4 w-full hover:bg-gray-300 focus:border-r-4 focus:border-red-500 focus:bg-gray-300" id="favorite-tab" data-tabs-target="#favorite" type="button" role="tab" aria-controls="favorite" aria-selected="false">
-                        <img src="{{url('/assets/favorite-icon.png')}}" alt="" class="w-8 mr-4" />
-                        Favorite
-                    </button>
-                </li>
             </div>
             <div>
                 <button type="submit" class="flex items-center p-4 w-full text-lg font-medium text-red-500 hover:bg-red-200" data-modal-target="popup-modal" data-modal-toggle="popup-modal">
@@ -61,12 +55,6 @@
     <div class="w-4/6" id="default-tab-content">
         <div class="hidden px-24" id="userinfo" role="tabpanel" aria-labelledby="userinfo-tab">
             @include('profile.user_info')
-        </div>
-        <div class="hidden px-24" id="favorite" role="tabpanel" aria-labelledby="favorite-tab">
-            <h1 class="text-2xl font-bold mb-6">Favorite</h1>
-            <div class="flex justify-center items-center h-96 w-full">
-                <h2 class="text-2xl font-bold">Belum ada motor yang disukai</h2>
-            </div>
         </div>
     </div>
 </div>
