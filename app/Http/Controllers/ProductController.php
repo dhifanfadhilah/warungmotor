@@ -6,6 +6,7 @@ use App\Http\Resources\ProductResource;
 use App\Http\Resources\ProductDetailResource;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,8 +14,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
-        $heroproducts = Product::orderBy('harga', 'desc')->take(3)->get();
+        $products = Product::paginate(10);
+        $heroproducts = Product::orderBy('jarak', 'asc')->take(3)->get();
         return view('ecommerce.index', compact('products', 'heroproducts'));
     }
 
@@ -25,6 +26,17 @@ class ProductController extends Controller
         $sprod = Product::orderBy('jarak', 'asc')->take(3)->get();
         // return new ProductDetailResource($product);
         return view('product.index', compact('product', 'slideproduct', 'sprod'));
+    }
+
+    public function nego($id){
+        $product = Product::with('author:id,name')->findOrFail($id);
+        return view('product.negotiate', compact('product'));
+    }
+
+    public function beli($id){
+        $product = Product::with('author:id,name')->findOrFail($id);
+        $user = Auth::user();
+        return view('product.buy', compact('product', 'user'));
     }
 
     public function store(Request $request)
@@ -112,7 +124,7 @@ class ProductController extends Controller
     public function sellerproduct($id = null)
     {
         $seller = Auth::user()->id;
-        $products = Product::orderBy('created_at', 'DESC')->where('owner', $seller)->paginate(4);
+        $products = Product::orderBy('created_at', 'DESC')->where('owner', $seller)->paginate(3);
         $productToUpdate = null;
 
         if ($id) {

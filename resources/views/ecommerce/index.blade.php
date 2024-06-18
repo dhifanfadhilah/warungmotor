@@ -15,9 +15,11 @@
 
             </div>
             <div class="self-center">
-                <div class="flex flex-col h-full justify-around ml-12 w-96 text-navy">
+                <div class="flex flex-col h-full justify-around ml-12 w-96 text-navy gap-5">
                     <h1 class="text-2xl font-bold">{{$hero->judul}}</h1>
-                    <br><br>
+                    <p class="text-sm font-semibold">
+                        {{$hero->deskripsi}}
+                    </p>
                     <a href="{{route('product.detail', ['id' => $hero->id])}}" class="text-sm font-bold">Detail Product...</a>
                 </div>
             </div>
@@ -71,7 +73,7 @@
 
 </div>
 
-<div class="grid grid-cols-5 justify-center gap-12 px-16 mb-12">
+<div class="grid grid-cols-5 justify-center gap-12 px-16 mb-6">
     @forelse ($products as $product)
     <div class="bg-white-broke h-80 font-inter text-sm rounded-lg font-semibold hover:border-2 hover:border-blue-200 hover:shadow">
         <a href="{{route('product.detail', ['id' => $product->id])}}">
@@ -85,5 +87,10 @@
     @empty
     <p>no product</p>
     @endforelse
+    
 </div>
+<div class="w-full px-16 mb-12">
+    {{ $products->links() }}
+</div>
+
 @endsection

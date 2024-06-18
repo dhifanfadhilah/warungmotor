@@ -64,15 +64,15 @@
 
         <div class="w-72 grid grid-cols-2 gap-2 mb-5">
             @if ($product->nego)
-            <a href="" class="col-span-2 w-full p-1 rounded-lg shadow bg-red-500 text-center text-lg font-bold hover:bg-red-400">
-                Negosisasi
+            <a href="{{route('product.nego', ['id' => $product->id])}}" class="col-span-2 w-full p-1 rounded-lg shadow bg-red-500 text-center text-lg font-bold hover:bg-red-400">
+                Nego
             </a>
             @else
             <button class="col-span-2 w-full p-1 rounded-lg shadow bg-red-500 text-center text-lg font-bold" disabled>
                 Nett
             </button>
             @endif
-            <a href="" class="col-span-2 w-full p-1 rounded-lg shadow bg-blue-old text-center text-lg font-bold text-white hover:bg-blue-800">
+            <a href="{{route('product.checkout', ['id' => $product->id])}}" class="col-span-2 w-full p-1 rounded-lg shadow bg-blue-old text-center text-lg font-bold text-white hover:bg-blue-800">
                 Beli
             </a>
         </div>

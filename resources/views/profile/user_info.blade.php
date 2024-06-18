@@ -48,7 +48,7 @@
     </div>
     <div class="mt-5">
         <label for="notelp" class="mb-2 block text-sm font-medium">No. Telepon</label>
-        <input type="text" id="notelp" name="notelp" autocomplete="notelp" placeholder="(+62)...." class="w-full text-sm font-medium p-2 rounded-lg bg-gray-100 border border-gray-200 focus:border-gray-blueish" />
+        <input type="text" id="notelp" name="notelp" autocomplete="notelp" placeholder="(62)...." class="w-full text-sm font-medium p-2 rounded-lg bg-gray-100 border border-gray-200 focus:border-gray-blueish" />
     </div>
     <div class="mt-5">
         <label for="lokasi" class="mb-2 block text-sm font-medium">Lokasi</label>

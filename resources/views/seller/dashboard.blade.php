@@ -6,7 +6,7 @@
 
 @section('content')
 @if (session('success'))
-<div class="flex items-center p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800" role="alert">
+<div class="flex items-center p-4 mb-4 text-xl text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800" role="alert">
     <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
         <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
     </svg>
@@ -16,7 +16,7 @@
     </div>
 </div>
 @elseif (session('updateSuccess'))
-<div class="flex items-center p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800" role="alert">
+<div class="flex items-center p-4 mb-4 text-xl text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800" role="alert">
     <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
         <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
     </svg>
@@ -26,7 +26,7 @@
     </div>
 </div>
 @elseif (session('deleteSuccess'))
-<div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+<div class="flex items-center p-4 mb-4 text-xl text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
     <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
         <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
     </svg>
@@ -72,8 +72,8 @@
     @forelse ($products as $product)
     <div class="flex flex-col gap-3 mb-3">
         <div class="flex items-center justify-around w-full bg-white-broke h-40 gap-3">
-            <div class="flex justify-center items-center w-2/5">
-                <img src="{{ asset('images/' . $product->image) }}" alt="" class="object-cover h-36">
+            <div class="flex justify-center items-center w-128">
+                <img src="{{ asset('images/' . $product->image) }}" alt="{{$product->judul}}" class="object-cover h-36">
             </div>
 
             <div class="">
@@ -243,13 +243,13 @@
         <div class="mb-3 relative">
             <label for="kontak" class="text-base font-bold">Kontak (Whatsapp)</label>
             <span class="absolute start-3 bottom-2 text-gray-500 text-base font-semibold">
-                (+62)
+                (62...)
             </span>
             <input type="text" id="kontak" name="kontak" class="pl-14 text-base font-semibold w-full rounded-lg bg-gray-200 mt-1" value="{{$productToUpdate->kontak}}" required>
         </div>
         <div class="mb-3">
             <label for="image" class="text-base font-bold mr-2">Unggah Foto</label>
-            <input type="file" id="image" name="image" value="{{$productToUpdate->image}}" required>
+            <input type="file" id="image" name="image" value="{{$productToUpdate->image}}">
         </div>
         <div class="mb-3">
             <label for="deskripsi" class="text-base font-bold">Deskripsi</label><br>

@@ -16,11 +16,11 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('/', [ProductController::class, 'index'])->name('dashboard');
+Route::get('/', [ProductController::class, 'index']);
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Route::get('/dashboard', [ProductController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [ProductController::class, 'index'])->name('dashboard');
     // Route::get('/dashboard', function () {
     //     return view('dashboard');
     // })->name('dashboard');

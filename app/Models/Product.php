@@ -30,4 +30,9 @@ class Product extends Model
     public function author(): BelongsTo{
         return $this->belongsTo(User::class, 'owner', 'id');
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }
