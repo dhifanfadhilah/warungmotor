@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +26,6 @@ Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::post('/products', [ProductController::class, 'store'])->middleware(['auth:sanctum']);
 Route::patch('/products/{id}', [ProductController::class, 'update'])->middleware(['auth:sanctum', 'product_owner']);
 Route::delete('/products/{id}', [ProductController::class, 'destroy'])->middleware(['auth:sanctum', 'product_owner']);
+
+Route::post('/checkout', [CheckoutController::class, 'process'])->name("checkout-process");
+Route::get('/transactions', [TransactionController::class, 'index'])->name("transactions");
